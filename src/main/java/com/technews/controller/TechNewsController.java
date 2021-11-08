@@ -46,7 +46,8 @@ public class TechNewsController {
 
       try {
          if (sessionUser.equals(null)) {
-
+            model.addAttribute("notice", "Email address is not recognized!");
+            return "login";
          }
       } catch (NullPointerException e) {
          model.addAttribute("notice", "Email address is not recognized!");
@@ -56,7 +57,7 @@ public class TechNewsController {
       // Validate Password
       String sessionUserPassword = sessionUser.getPassword();
       boolean isPasswordValid = BCrypt.checkpw(user.getPassword(), sessionUserPassword);
-      if (isPasswordValid == false) {
+      if (!isPasswordValid) {
          model.addAttribute("notice", "Password is not valid!");
          return "login";
       }
@@ -91,9 +92,12 @@ public class TechNewsController {
 
       try {
          if (sessionUser.equals(null)) {
-
+            // failed to find user
+            model.addAttribute("notice", "User is not recognized!");
+            return "login";
          }
       } catch (NullPointerException e) {
+         // catches malformed user
          model.addAttribute("notice", "User is not recognized!");
          return "login";
       }
