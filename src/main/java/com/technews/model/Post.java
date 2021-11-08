@@ -1,7 +1,7 @@
 package com.technews.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sun.istack.NotNull;
+import org.springframework.lang.NonNull;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -24,12 +24,12 @@ public class Post implements Serializable {
    private int voteCount;
    private Integer userId;
 
-   @NotNull
+   @NonNull
    @Transient
    @Column(name = "posted_at")
    private Date postedAt = new Date();
    
-   @NotNull
+   @NonNull
    @Transient
    @Column(name = "updated_at")
    private Date updatedAt = new Date();
