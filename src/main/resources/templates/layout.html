@@ -3,18 +3,19 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Just Tech News</title>
+   <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Java Tech News</title>
    <link rel="stylesheet" href="/css/style.css">
+   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="wrapper">
    <header>
       <h1>
-         <a href="/">Just Tech News</a>
+         <a href="/">Java Tech News</a>
       </h1>
       <nav>
-         <div th:if="${loggedIn}">
-               <a th:href="@{/dashboard}">dashboard</a>
+         <div th:if="${loggedIn}" center>
+               <a th:href="@{/dashboard}">dashboard</a><br>
                <a th:href="@{/users/logout}">logout</a>
          </div>
          <div th:unless="${loggedIn}">
