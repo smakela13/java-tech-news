@@ -62,7 +62,7 @@ public class HomePageController {
       List<Post> postList = postRepository.findAll();
       for (Post p : postList) {
          p.setVoteCount(voteRepository.countVotesByPostId(p.getId()));
-         User user = userRepository.getOne(p.getUserId());
+         User user = userRepository.getById(p.getUserId());
          p.setUserName(user.getUsername());
       }
 
@@ -137,7 +137,7 @@ public class HomePageController {
       List<Post> postList = postRepository.findAllPostsByUserId(userId);
       for (Post p : postList) {
          p.setVoteCount(voteRepository.countVotesByPostId(p.getId()));
-         User user = userRepository.getOne(p.getUserId());
+         User user = userRepository.getById(p.getUserId());
          p.setUserName(user.getUsername());
       }
 
@@ -156,10 +156,10 @@ public class HomePageController {
          model.addAttribute("loggedIn", sessionUser.isLoggedIn());
       }
 
-      Post post = postRepository.getOne(id);
+      Post post = postRepository.getById(id);
       post.setVoteCount(voteRepository.countVotesByPostId(post.getId()));
 
-      User postUser = userRepository.getOne(post.getUserId());
+      User postUser = userRepository.getById(post.getUserId());
       post.setUserName(postUser.getUsername());
 
       List<Comment> commentList = commentRepository.findAllCommentsByPostId(post.getId());
@@ -176,8 +176,8 @@ public class HomePageController {
    if (request.getSession(false) != null) {
       User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
 
-      Post returnPost = postRepository.getOne(id);
-      User tempUser = userRepository.getOne(returnPost.getUserId());
+      Post returnPost = postRepository.getById(id);
+      User tempUser = userRepository.getById(returnPost.getUserId());
       returnPost.setUserName(tempUser.getUsername());
       returnPost.setVoteCount(voteRepository.countVotesByPostId(returnPost.getId()));
 
