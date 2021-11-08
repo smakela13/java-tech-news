@@ -15,7 +15,7 @@ This blog site will give you a platform to share tech news with others. Simply s
 
 Get ready to spread news and connect with the tech world through this helpful news site! 
 
-This blog uses Java, JavaScript, HTML5, CSS3, Spring, MySQL, and Thymeleaf. It's deployed on Heroku.
+This blog uses Java, JavaScript, HTML5, CSS3, Spring Boot, MySQL, and Thymeleaf. It's deployed on Heroku.
 
 ## Usage
 
