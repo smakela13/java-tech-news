@@ -36,8 +36,8 @@ public class TechNewsController {
    @PostMapping("/users/login")
    public String login(@ModelAttribute User user, Model model, HttpServletRequest request) throws Exception {
 
-      if ((user.getPassword().equals(null) || user.getPassword().isEmpty())
-            || (user.getEmail().equals(null) || user.getPassword().isEmpty())) {
+      if ((user.getPassword() == null || user.getPassword().isEmpty())
+            || (user.getEmail() == null || user.getEmail().isEmpty())) {
          model.addAttribute("notice", "Email address and password must be populated in order to login!");
          return "login";
       }
@@ -45,7 +45,7 @@ public class TechNewsController {
       User sessionUser = userRepository.findUserByEmail(user.getEmail());
 
       try {
-         if (sessionUser.equals(null)) {
+         if (sessionUser == null) {
             model.addAttribute("notice", "Email address is not recognized!");
             return "login";
          }
@@ -71,9 +71,9 @@ public class TechNewsController {
    @PostMapping("/users")
    public String signup(@ModelAttribute User user, Model model, HttpServletRequest request) throws Exception {
 
-      if ((user.getUsername().equals(null) || user.getUsername().isEmpty())
-            || (user.getPassword().equals(null) || user.getPassword().isEmpty())
-            || (user.getEmail().equals(null) || user.getPassword().isEmpty())) {
+      if ((user.getUsername() == null || user.getUsername().isEmpty())
+            || (user.getPassword() == null || user.getPassword().isEmpty())
+            || (user.getEmail() == null || user.getPassword().isEmpty())) {
          model.addAttribute("notice", "In order to signup username, email address and password must be populated!");
          return "login";
       }
@@ -89,15 +89,8 @@ public class TechNewsController {
       }
 
       User sessionUser = userRepository.findUserByEmail(user.getEmail());
-
-      try {
-         if (sessionUser.equals(null)) {
-            // failed to find user
-            model.addAttribute("notice", "User is not recognized!");
-            return "login";
-         }
-      } catch (NullPointerException e) {
-         // catches malformed user
+         
+      if (sessionUser == null) {
          model.addAttribute("notice", "User is not recognized!");
          return "login";
       }
@@ -111,8 +104,8 @@ public class TechNewsController {
    @PostMapping("/posts")
    public String addPostDashboardPage(@ModelAttribute Post post, Model model, HttpServletRequest request) {
 
-      if ((post.getTitle().equals(null) || post.getTitle().isEmpty())
-            || (post.getPostUrl().equals(null) || post.getPostUrl().isEmpty())) {
+      if ((post.getTitle() == null || post.getTitle().isEmpty())
+            || (post.getPostUrl() == null || post.getPostUrl().isEmpty())) {
          return "redirect:/dashboardEmptyTitleAndLink";
       }
 
@@ -146,7 +139,7 @@ public class TechNewsController {
    @PostMapping("/comments")
    public String createCommentCommentsPage(@ModelAttribute Comment comment, Model model, HttpServletRequest request) {
 
-      if (comment.getCommentText().isEmpty() || comment.getCommentText().equals(null)) {
+      if (comment.getCommentText() == null || comment.getCommentText().isEmpty()) {
          return "redirect:/singlePostEmptyComment/" + comment.getPostId();
       } else {
          if (request.getSession(false) != null) {
@@ -163,7 +156,7 @@ public class TechNewsController {
    @PostMapping("/comments/edit")
    public String createCommentEditPage(@ModelAttribute Comment comment, HttpServletRequest request) {
 
-      if (comment.getCommentText().equals("") || comment.getCommentText().equals(null)) {
+      if (comment.getCommentText() == null || comment.getCommentText().isEmpty()) {
          return "redirect:/editPostEmptyComment/" + comment.getPostId();
       } else {
          if (request.getSession(false) != null) {
