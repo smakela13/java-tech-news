@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import javax.persistence.EntityNotFoundException;
 
 @RestController
 public class UserController {
@@ -52,12 +52,17 @@ public class UserController {
 
    @PutMapping("/api/users/{id}")
    public User updateUser(@PathVariable int id, @RequestBody User user) {
-      User tempUser = repository.getById(id);
+      final User tempUser;
 
-      if (!tempUser.equals(null)) {
-         user.setId(tempUser.getId());
-         repository.save(user);
+      try {
+         tempUser = repository.getById(id);
       }
+      catch (EntityNotFoundException e) {
+         return null;
+      }
+      
+      user.setId(tempUser.getId());
+      repository.save(user);
       return user;
    }
 
